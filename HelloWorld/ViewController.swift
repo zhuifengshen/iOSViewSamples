@@ -35,11 +35,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         //解除键盘隐藏通知
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidHideNotification, object: nil)
     }
-    
+    //键盘打开时,触发本回调函数
     func keyboardDidShow(notification:NSNotification){
         NSLog("键盘打开")
     }
-    
+    //键盘隐藏时,触发本回调函数
     func keyboardDidHide(notification:NSNotification){
         NSLog("键盘关闭")
     }
@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         }
         return true
     }
-    
+    //开关控件 UISwitch
     @IBOutlet weak var LeftSwitch: UISwitch!
     @IBOutlet weak var RightSwitch: UISwitch!
     @IBAction func switchValueChanged(sender: AnyObject) {
@@ -65,7 +65,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         self.LeftSwitch.setOn(setting, animated:true)
         self.RightSwitch.setOn(setting, animated:true)
     }
-    
+    //分段控件UISegmented Control
     @IBAction func touchDown(sender: AnyObject) {
         if self.LeftSwitch.hidden == true{
             self.LeftSwitch.hidden = false
@@ -75,8 +75,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
             self.RightSwitch.hidden = true
         }
     }
+    //滑块控件 UISlider
     @IBOutlet weak var SliderValue: UILabel!
-    
     @IBAction func sliderValueChange(sender: AnyObject) {
         let slider = sender as! UISlider
         let progressAsInt = Int(slider.value)
@@ -112,10 +112,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         self.webView.loadRequest(request)
         self.webView.delegate = self
     }
-    
+    //活动指示器 ActivityIndicatorView
     var timer:NSTimer!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
     @IBAction func startToMove(sender: AnyObject) {
         if self.activityIndicatorView.isAnimating(){
             self.activityIndicatorView.stopAnimating()
@@ -123,16 +122,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
             self.activityIndicatorView.startAnimating()
         }
     }
-    
+    //模拟进度条ProgressView
     @IBOutlet var progressView: UIView!
-    
     @IBOutlet weak var myProgressView: UIProgressView!
-    
     @IBAction func downloadProgress(sender: AnyObject) {
         myProgressView.progress = 0.0
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:"download", userInfo:nil, repeats: true)
     }
-    
+    //计时器回调函数
     func download(){
         self.myProgressView.progress = self.myProgressView.progress + 0.1
         if self.myProgressView.progress == 1.0{
@@ -141,25 +138,25 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
             alert.show()
         }
     }
-    
+    // 构建警告框
     @IBAction func testAlertView(sender: AnyObject) {
         let alertView:UIAlertView = UIAlertView(title: "通知", message: "明天放假啦", delegate:  self, cancelButtonTitle: "NO", otherButtonTitles: "YES")
         alertView.show()
     }
-    
+    // 实现 UIAlertDelegate
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         NSLog("ClickButton = %i",buttonIndex)
     }
-    
+    //构建操作表
     @IBAction func testActionSheet(sender: AnyObject) {
         let actionSheet = UIActionSheet(title: "分享", delegate:  self, cancelButtonTitle: "取消", destructiveButtonTitle: "破坏性按钮", otherButtonTitles: "QQ", "微信", "微博")
         actionSheet.showInView(self.view)
     }
-    
+    //实现 UIActionSheetDelegate
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         NSLog("ClickSheetButton = %i", buttonIndex)
     }
-    
+    // UIAlertController 构建警告框
     @IBAction func testNewAlertView(sender: AnyObject) {
         let alertController:UIAlertController = UIAlertController(title: "新通知", message: "周末又来了", preferredStyle:  UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.Cancel, handler: {(alertAction)-> Void in
@@ -176,7 +173,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    
+    // UIAlertController 构建操作表 ActionSheet
     @IBAction func testNewActionSheet(sender: AnyObject) {
         let actionSheetController:UIAlertController = UIAlertController()
         actionSheetController.addAction(UIAlertAction(title: "取消", style:  UIAlertActionStyle.Cancel, handler: {(alertAction)->Void in
@@ -196,19 +193,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate,
         }))
         self.presentViewController(actionSheetController, animated: true, completion: nil)
     }
-    
+    //工具栏 save 按钮响应函数
     @IBAction func save(sender: AnyObject) {
         NSLog("Tap save 按钮")
     }
-    
+    //工具栏 open 按钮响应函数
     @IBAction func open(sender: AnyObject) {
         NSLog("Tap open 按钮")
     }
-
+    //导航栏 Save 按钮响应函数
     @IBAction func saveNavigationBar(sender: AnyObject) {
         NSLog("Tap save navigation bar button")
     }
-    
+    //导航栏+按钮触发响应函数
     @IBAction func addNavigationBar(sender: AnyObject) {
         NSLog("Tap add navigation bar button")
     }
